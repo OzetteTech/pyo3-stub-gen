@@ -24,6 +24,6 @@ impl From<&ArgInfo> for Arg {
 
 impl fmt::Display for Arg {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}:{}", self.name, self.r#type)
+        write!(f, "{}: {}", self.name, self.r#type)
     }
 }

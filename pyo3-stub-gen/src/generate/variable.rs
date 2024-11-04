@@ -19,6 +19,6 @@ impl From<&PyVariableInfo> for VariableDef {
 
 impl fmt::Display for VariableDef {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}: {}", self.name, self.type_)
+        writeln!(f, "{}: {}", self.name, self.type_)
     }
 }
