@@ -7,6 +7,7 @@ import typing
 from enum import Enum, auto
 
 MY_CONSTANT: int
+MY_OTHER_CONSTANT: str
 class A:
     x: int
     def __new__(cls,x:int): ...
@@ -42,11 +43,13 @@ def str_len(x:str) -> int:
     """
     ...
 
-def sum(v:typing.Sequence[int]) -> int:
+def sum(v:typing.Sequence[int],u:typing.Sequence[int]) -> int:
     r"""
-    Returns the sum of two numbers as a string.
+    Returns the sum of two sequences.
     """
     ...
 
 class MyError(RuntimeError): ...
+
+class MyOtherError(IndexError): ...
 
