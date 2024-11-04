@@ -35,30 +35,38 @@ impl From<&PyFunctionInfo> for FunctionDef {
 
 impl fmt::Display for FunctionDef {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let indent = indent();
+
         write!(f, "def {}(", self.name)?;
-        if let Some(sig) = self.signature {
-            write!(f, "{}", sig)?;
-        } else {
-            for (i, arg) in self.args.iter().enumerate() {
-                write!(f, "{}", arg)?;
-                if i != self.args.len() - 1 {
-                    write!(f, ",")?;
+        if self.args.len() > 0 {
+            writeln!(f)?;
+            if let Some(sig) = self.signature {
+                writeln!(f, "{indent}{}", sig)?;
+            } else {
+                for arg in self.args.iter() {
+                    writeln!(f, "{indent}{},", arg)?;
                 }
             }
         }
-        writeln!(f, ") -> {}:", self.r#return)?;
+        write!(f, ") -> {}:", self.r#return)?;
 
         let doc = self.doc;
-        let indent = indent();
-        if !doc.is_empty() {
+        if doc.is_empty() {
+            writeln!(f, " ...")?;
+        } else {
+            writeln!(f)?;
             writeln!(f, r#"{indent}r""""#)?;
             for line in doc.lines() {
-                writeln!(f, "{indent}{}", line)?;
+                if !line.is_empty() {
+                    writeln!(f, "{indent}{}", line)?;
+                } else {
+                    writeln!(f)?;
+                }
             }
             writeln!(f, r#"{indent}""""#)?;
+            writeln!(f, "{indent}...")?;
+            writeln!(f)?;
         }
-        writeln!(f, "{indent}...")?;
-        writeln!(f)?;
         Ok(())
     }
 }

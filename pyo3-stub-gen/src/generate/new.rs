@@ -30,19 +30,17 @@ impl From<&NewInfo> for NewDef {
 impl fmt::Display for NewDef {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let indent = indent();
-        write!(f, "{indent}def __new__(cls,")?;
+        writeln!(f, "{indent}def __new__(  # type: ignore[no-untyped-def]")?;
+        writeln!(f, "{indent}{indent}cls,")?;
         if let Some(signature) = self.signature {
             let joined = signature.replace('\n', " ");
-            write!(f, "{}", joined)?;
+            writeln!(f, "{indent}{indent}{}", joined)?;
         } else {
-            for (n, arg) in self.args.iter().enumerate() {
-                write!(f, "{}", arg)?;
-                if n != self.args.len() - 1 {
-                    write!(f, ", ")?;
-                }
+            for arg in self.args.iter() {
+                writeln!(f, "{indent}{indent}{},", arg)?;
             }
         }
-        writeln!(f, "): ...")?;
+        writeln!(f, "{indent}): ...")?;
         Ok(())
     }
 }
