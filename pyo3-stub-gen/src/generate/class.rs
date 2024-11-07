@@ -49,9 +49,14 @@ impl fmt::Display for ClassDef {
         if !doc.is_empty() {
             writeln!(f, r#"{indent}r""""#)?;
             for line in doc.lines() {
-                writeln!(f, "{indent}{}", line)?;
+                if !line.is_empty() {
+                    writeln!(f, "{indent}{}", line)?;
+                } else {
+                    writeln!(f)?;
+                }
             }
             writeln!(f, r#"{indent}""""#)?;
+            writeln!(f)?;
         }
         for member in &self.members {
             member.fmt(f)?;

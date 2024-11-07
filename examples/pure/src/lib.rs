@@ -2,15 +2,21 @@
 mod readme {}
 
 use ahash::RandomState;
-use pyo3::{exceptions::PyRuntimeError, prelude::*, types::*};
+use pyo3::{
+    exceptions::{PyIndexError, PyRuntimeError},
+    prelude::*,
+    types::*,
+};
 use pyo3_stub_gen::{create_exception, define_stub_info_gatherer, derive::*, module_variable};
 use std::{collections::HashMap, path::PathBuf};
 
-/// Returns the sum of two numbers as a string.
+/// Returns the sum of two sequences.
 #[gen_stub_pyfunction]
 #[pyfunction]
-fn sum(v: Vec<u32>) -> u32 {
-    v.iter().sum()
+fn sum(v: Vec<u32>, u: Vec<u32>) -> u32 {
+    let a: u32 = v.iter().sum();
+    let b: u32 = u.iter().sum();
+    a + b
 }
 
 #[gen_stub_pyfunction]
@@ -66,6 +72,8 @@ fn create_a(x: usize) -> A {
 
 create_exception!(pure, MyError, PyRuntimeError);
 
+create_exception!(pure, MyOtherError, PyIndexError);
+
 /// Returns the length of the string.
 #[gen_stub_pyfunction]
 #[pyfunction]
@@ -100,6 +108,8 @@ pub enum Number {
 }
 
 module_variable!("pure", "MY_CONSTANT", usize);
+
+module_variable!("pure", "MY_OTHER_CONSTANT", String);
 
 /// Initializes the Python module
 #[pymodule]

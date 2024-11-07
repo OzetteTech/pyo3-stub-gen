@@ -4,18 +4,18 @@
 from . import sub_mod
 
 class A:
-    def show_x(self) -> None:
-        ...
-
+    def show_x(
+        self,
+    ) -> None: ...
 
 class B:
-    def show_x(self) -> None:
-        ...
+    def show_x(
+        self,
+    ) -> None: ...
 
-
-def create_a(x:int) -> A:
-    ...
-
-def create_b(x:int) -> B:
-    ...
-
+def create_a(
+    x: int,
+) -> A: ...
+def create_b(
+    x: int,
+) -> B: ...

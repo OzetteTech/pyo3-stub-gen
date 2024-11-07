@@ -7,46 +7,56 @@ import typing
 from enum import Enum, auto
 
 MY_CONSTANT: int
+
+MY_OTHER_CONSTANT: str
+
 class A:
     x: int
-    def __new__(cls,x:int): ...
-    def show_x(self) -> None:
-        ...
-
-    def ref_test(self, x:dict) -> dict:
-        ...
-
+    def __new__(
+        cls,
+        x: int,
+    ): ...
+    def show_x(
+        self,
+    ) -> None: ...
+    def ref_test(
+        self,
+        x: dict,
+    ) -> dict: ...
 
 class Number(Enum):
     FLOAT = auto()
     INTEGER = auto()
 
-def ahash_dict() -> dict[str, int]:
-    ...
-
-def create_a(x:int) -> A:
-    ...
-
-def create_dict(n:int) -> dict[int, list[int]]:
-    ...
-
-def echo_path(path:str | os.PathLike | pathlib.Path) -> str:
-    ...
-
-def read_dict(dict:typing.Mapping[int, typing.Mapping[int, int]]) -> None:
-    ...
-
-def str_len(x:str) -> int:
+def ahash_dict() -> dict[str, int]: ...
+def create_a(
+    x: int,
+) -> A: ...
+def create_dict(
+    n: int,
+) -> dict[int, list[int]]: ...
+def echo_path(
+    path: str | os.PathLike | pathlib.Path,
+) -> str: ...
+def read_dict(
+    dict: typing.Mapping[int, typing.Mapping[int, int]],
+) -> None: ...
+def str_len(
+    x: str,
+) -> int:
     r"""
     Returns the length of the string.
     """
     ...
 
-def sum(v:typing.Sequence[int]) -> int:
+def sum(
+    v: typing.Sequence[int],
+    u: typing.Sequence[int],
+) -> int:
     r"""
-    Returns the sum of two numbers as a string.
+    Returns the sum of two sequences.
     """
     ...
 
 class MyError(RuntimeError): ...
-
+class MyOtherError(IndexError): ...
